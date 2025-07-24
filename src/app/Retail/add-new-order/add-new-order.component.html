@@ -1,0 +1,100 @@
+<section class="container mb-4">
+  <div class="d-flex flex-wrap gap-3">
+    @for (category of allCategories; track $index) {
+    <button class="cat-badge">{{ category.name }}</button>
+    }
+  </div>
+</section>
+
+<section class="container">
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        @for (product of allProducts; track $index) {
+        <div class="col">
+          <div class="card" (click)="addToCartTable(product)">
+            <div class="card-body">
+              <img
+                [src]="product.image"
+                alt="صورة المنتج"
+                width="100%"
+                height="50%"
+              />
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">{{ product.price }} ج.م</p>
+            </div>
+          </div>
+        </div>
+
+        }
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+        <div class="cart-table-wrapper mb-3">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>الاسم</th>
+                  <th>السعر</th>
+                  <th>الكمية</th>
+                  <th>حذف</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (product of cartProducts; track $index) {
+                <tr>
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.price }}</td>
+                  <td>
+                    <div class="d-flex">
+                      <button (click)="quantityIncrease()" class="quantity-increase">
+                        +
+                      </button>
+                      <input
+                        type="number"
+                        [value]="productQuantity"
+                        class="form-control"
+                        style="width: 50px"
+                        id="quantity"
+                      />
+                      <button (click)="quantityDecrease()" class="quantity-decrease">
+                        -
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-danger"
+                      (click)="removeFromCart(product.id)"
+                    >
+                      <i class="bi bi-trash3-fill"></i>
+                    </button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+        </div>
+
+
+
+        <div class="cart-summary-wrapper">
+            <div class="card p-3">
+              <h5 class="mb-3 text-center">ملخص السلة</h5>
+              <div class="d-flex justify-content-between">
+                <span>عدد المنتجات</span>
+                <span>{{ cartProducts.length }}</span>
+              </div>
+              <hr />
+              <div class="d-flex justify-content-between fw-bold">
+                <span>الإجمالي الكلي</span>
+                <span>{{ getTotalCartValue() }}</span>
+              </div>
+              <button class="btn btn-primary w-100 mt-3">الانتقال للدفع</button>
+            </div>
+
+        </div>
+    </div>
+  </div>
+</section>

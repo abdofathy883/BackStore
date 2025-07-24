@@ -1,0 +1,109 @@
+<section class="popup-section">
+  <button type="button" class="X-button" (click)="closePopup()">
+    &#10005;
+  </button>
+  <form action="">
+    <div class="mb-3">
+      <div id="dropzone-area" class="dropzone"></div>
+
+      <!-- Custom preview template -->
+      <!-- <div *ngFor="let image of images" class="dz-preview dz-file-preview">
+        <img [src]="image.thumbnailUrl" />
+        <div class="dz-details">
+          <div>{{ image.name }}</div>
+          <div>{{ image.size }} bytes</div>
+        </div>
+        <div class="dz-progress"><span class="dz-upload"></span></div>
+        <button
+          class="btn-feature"
+          (click)="setFeatured(image._customId)"
+          [class.featured]="isFeatured(image._customId)"
+        >
+          ★
+        </button>
+        <div class="dz-error-message"><span></span></div>
+      </div> -->
+    </div>
+    <div class="mb-3">
+      <label for="productName" class="form-label">اسم المنتج</label>
+      <input type="text" class="form-control" id="productName" />
+    </div>
+    <div class="mb-3">
+      <label for="productDescription" class="form-label">وصف المنتج</label>
+      <textarea
+        name="productDescription"
+        id="productDescription"
+        class="form-control"
+        rows="3"
+      ></textarea>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label for="productOriginalPrice" class="form-label"
+          >السعر الأصلي</label
+        >
+        <input type="number" class="form-control" id="productOriginalPrice" />
+      </div>
+      <div class="col">
+        <label for="productSalePrice" class="form-label">سعر البيع</label>
+        <input type="number" class="form-control" id="productSalePrice" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label for="productCategory" class="form-label">فئة المنتج</label>
+        <select name="productCategory" id="productCategory" class="form-select">
+          <option value="electronics">إلكترونيات</option>
+          <option value="clothing">ملابس</option>
+          <option value="home">منزل</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="productQuantity" class="form-label">كمية المنتج</label>
+        <input type="number" class="form-control" id="productQuantity" />
+      </div>
+    </div>
+    <div class="mb-3"></div>
+    <div class="mb-3">
+      <label for="productImage" class="form-label"> صورة المنتج</label>
+      <input type="file" class="form-control" id="productImage" />
+    </div>
+
+    <div class="mb-3">
+      <label for="productType" class="form-label">نوع المنتج</label>
+      <select name="productType" id="productType" class="form-select">
+        <option value="simple">بسيط</option>
+        <option value="variable">متغير</option>
+      </select>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label for="productColor" class="form-label">لون المنتج</label>
+        <select name="productColor" id="productColor" class="form-select">
+          <option value="red">أحمر</option>
+          <option value="blue">أزرق</option>
+          <option value="green">أخضر</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="productSize" class="form-label">مقاس المنتج</label>
+        <select name="productSize" id="productSize" class="form-select">
+          <option value="small">صغير</option>
+          <option value="medium">متوسط</option>
+          <option value="large">كبير</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="form-button">
+      @if (isLoading) {
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      جاري الإضافة... } @else { اضافة منتج }
+    </button>
+  </form>
+</section>

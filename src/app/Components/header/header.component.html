@@ -1,0 +1,62 @@
+<header [class.collapsed]="isCollapsed" [class.expanded]="!isCollapsed && isMobile" class="sidebar">
+  <nav>
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <i class="bi bi-list"></i>
+    </button>
+    <ul class="navbar-nav text-white">
+      <li class="nav-item">
+        <a routerLink="/" class="nav-link py-3">
+          <i class="bi bi-house-door-fill"></i>
+          <span class="link-text me-4">الرئيسية</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/product/all-products" class="nav-link py-3">
+          <i class="bi bi-box"></i>
+          <span class="link-text me-4">المنتجات</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/user/all-users" class="nav-link py-3">
+          <i class="bi bi-people-fill"></i>
+          <span class="link-text me-4">المستخدمون</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          routerLink="/category/all-categories"
+          class="nav-link py-3"
+        >
+          <i class="bi bi-tags"></i>
+          <span class="link-text me-4">التصنيفات</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/vendor/all-vendors" class="nav-link py-3">
+          <i class="bi bi-shop"></i>
+          <span class="link-text me-4">التجار</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/varient/all-colors" class="nav-link py-3">
+          <i class="bi bi-shop"></i>
+          <span class="link-text me-4">الالوان</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/varient/all-sizes" class="nav-link py-3">
+          <i class="bi bi-shop"></i>
+          <span class="link-text me-4">المقاسات</span>
+        </a>
+      </li>
+    </ul>
+
+    
+  </nav>
+  <div class="my-4 mx-4">
+    <a routerLink="/user/my-profile" class="nav-link py-3">
+      <i class="bi bi-person-circle"></i>
+      <span class="link-text me-4">حسابي</span>
+    </a>
+  </div>
+</header>

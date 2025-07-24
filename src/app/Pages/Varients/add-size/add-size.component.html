@@ -1,0 +1,27 @@
+<section class="popup-section">
+  <button type="button" class="X-button" (click)="closePopup()">
+    &#10005;
+  </button>
+  <form #AddNewColor="ngForm" (ngSubmit)="onSubmit(AddNewColor)">
+    <div class="mb-3">
+      <label for="sizeName" class="form-label">اسم المقاس</label>
+      <input
+        type="text"
+        class="form-control"
+        id="sizeName"
+        [(ngModel)]="colorName"
+        name="volorName"
+        required
+      />
+    </div>
+    <button class="form-button">
+      @if (isLoading) {
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      جاري الإضافة... } @else { اضافة مقاس }
+    </button>
+  </form>
+</section>

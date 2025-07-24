@@ -1,0 +1,27 @@
+<section>
+  @if (currentColor.isDeleted) {
+  <div class="alert alert-danger" role="alert">هذا اللون مخفي من المتجر</div>
+  }
+
+  <form #UpdateColor="ngForm" (submit)="onSubmit(UpdateColor)">
+    <label for="name" class="form-label">اسم اللون</label>
+    <input type="text" class="form-control" [(ngModel)]="currentColor.name" />
+
+    <label for="code" class="form-label">درجة اللون</label>
+    <input
+      type="color"
+      class="form-control"
+      [(ngModel)]="currentColor.colorCode"
+    />
+
+    <button class="form-button">
+      @if (isLoading) {
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      جاري التحديث... } @else { تحديث البيانات }
+    </button>
+  </form>
+</section>

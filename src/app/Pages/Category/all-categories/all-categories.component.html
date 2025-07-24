@@ -1,0 +1,32 @@
+<section class="container">
+  <div class="d-flex justify-content-between">
+    <div>
+      <h1>جميع تصنيفات المنتجات</h1>
+      <p>هنا يمكنك العثور على جميع المنتجات المتاحة في متجرنا.</p>
+    </div>
+    <div>
+      <button class="btn btn-primary" (click)="openAddCategoryPopup()">
+        إضافة تصنيف
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>اسم التصنيف</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (category of categories; track $index) {
+        <tr>
+          <td>{{ category.name }}</td>
+          <td>{{ category.description }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

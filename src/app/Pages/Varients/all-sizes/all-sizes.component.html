@@ -1,0 +1,30 @@
+<section>
+  <div class="row mb-3">
+    <div class="col">
+      <h1>جميع المقاسات</h1>
+      <p>هنا يمكنك العثور على جميع المقاسات المتاحة في متجرنا.</p>
+    </div>
+
+    <div class="col">
+      <button class="form-button" (click)="openAddSizePopup()">
+        اضافة لون
+      </button>
+    </div>
+  </div>
+  <div>
+    <table class="table table-stripe">
+      <thead>
+        <tr>
+          <th>اسم المقاس</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          @for (size of sizes; track $index) {
+            <td>{{ size.name }}</td>
+          }
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,56 @@
+<section class="popup-section">
+  <div class="mb-3">
+    <h2>إضافة حساب جديد</h2>
+    <button type="button" class="X-button" (click)="closePopup()">
+      &#10005;
+    </button>
+  </div>
+  <form action="">
+    <div class="row mb-3">
+      <div class="col">
+        <label for="firstName" class="form-label">الاسم الاول</label>
+        <input type="text" class="form-control" id="firstName" />
+      </div>
+      <div class="col">
+        <label for="lastName" class="form-label">الاسم الاخير</label>
+        <input type="text" class="form-control" id="lastName" />
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label for="email" class="form-label">البريد الالكتروني</label>
+        <input type="email" class="form-control" id="email" />
+      </div>
+      <div class="col">
+        <label for="phone" class="form-label">رقم الهاتف</label>
+        <input type="tel" class="form-control" id="phone" />
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label for="password" class="form-label">كلمة المرور</label>
+        <input type="password" class="form-control" id="password" />
+      </div>
+      <div class="col">
+        <label for="role" class="form-label">الدور</label>
+        <select name="role" id="role" class="form-select">
+          <option value="" disabled selected>اختر الدور</option>
+          <option value="admin">مدير</option>
+          <option value="user">مستخدم</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="form-button">
+      @if (isLoading) {
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      جاري الإضافة... } @else { اضافة حساب }
+    </button>
+  </form>
+</section>

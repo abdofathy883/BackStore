@@ -1,0 +1,36 @@
+<section>
+  <div class="card mb-4 p-3">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h5 class="mb-1">
+          {{ CurrentUser?.firstName + " " + CurrentUser?.lastName }}
+        </h5>
+        <p class="mb-0">{{ CurrentUser?.email }}</p>
+        <p class="mb-0">{{ CurrentUser?.phoneNumber }}</p>
+        <p class="mb-0">{{ CurrentUser?.roles[0] }}</p>
+      </div>
+      <div class="col-md-4 text-start">
+        <button
+          class="card h-100 text-center text-decoration-none text-dark btn border-0"
+          (click)="LogOut()"
+        >
+          <div class="card-body">
+            <i class="bi bi-box-arrow-right fs-2 mb-2 text-danger"></i>
+            <h6 class="card-title text-danger">تسجيل الخروج</h6>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-sm-2  g-4">
+    <div class="col">
+      <div class="card h-100 text-center text-dark">
+        <div class="card-body">
+          <i class="bi bi-box-seam fs-2 mb-2"></i>
+          <h6 class="card-title">طلباتي</h6>
+        </div>
+    </div>
+    </div>
+  </div>
+</section>

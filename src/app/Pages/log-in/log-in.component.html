@@ -1,0 +1,40 @@
+<section>
+    <form #LoginForm="ngForm" (ngSubmit)="onSubmit(LoginForm)">
+      <div class="mb-3">
+        <label for="email" class="form-label">البريد الإلكتروني</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="أدخل بريدك الإلكتروني"
+          [(ngModel)]="userLogin.Email"
+          name="email"
+          autofocus
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">كلمة المرور</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="أدخل كلمة المرور"
+            [(ngModel)]="userLogin.Password"
+            name="password"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <button class="form-button">
+            @if (isLoading) {
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              جاري التسجيل...
+            } @else {
+              تسجيل الدخول
+            }
+        </button>
+      </div>
+    </form>
+
+</section>

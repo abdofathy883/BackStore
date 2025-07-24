@@ -1,0 +1,34 @@
+<section class="popup-section">
+  <button type="button" class="X-button" (click)="closePopup()">
+    &#10005;
+  </button>
+  <form #AddNewColor="ngForm" (submit)="onSubmit(AddNewColor)">
+    <div class="mb-3">
+      <label for="colorName" class="form-label">اسم اللون</label>
+      <input
+        type="text"
+        class="form-control"
+        id="colorName"
+        [(ngModel)]="color.name"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="colorCode" class="form-label">درجة اللون</label>
+      <input
+        type="color"
+        class="form-control"
+        id="colorCode"
+        [(ngModel)]="color.colorCode"
+      />
+    </div>
+    <button class="form-button">
+      @if (isLoading) {
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      جاري الإضافة... } @else { اضافة لون }
+    </button>
+  </form>
+</section>

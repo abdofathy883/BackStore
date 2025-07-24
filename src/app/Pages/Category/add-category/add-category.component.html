@@ -1,0 +1,60 @@
+<section class="popup-section">
+  <h2>إضافة فئة جديدة</h2>
+  <button type="button" class="X-button" (click)="closePopup()">
+    &#10005;
+  </button>
+  <form #AddNewCatForm="ngForm" (ngSubmit)="onSubmit(AddNewCatForm)">
+    <div class="mb-3">
+      <label for="categoryName" class="form-label">اسم الفئة</label>
+      <input
+        type="text"
+        class="form-control"
+        id="categoryName"
+        [(ngModel)]="newCategory.name"
+        name="categoryName"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="categoryDescription" class="form-label">وصف الفئة</label>
+      <textarea
+        name="categoryDescription"
+        id="categoryDescription"
+        [(ngModel)]="newCategory.description"
+        class="form-control"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="categoryImage" class="form-label"> صورة الفئة</label>
+      <div id="dropzone-area" class="dropzone"></div>
+      <!-- Custom preview template -->
+      <div id="preview-template" style="display: none">
+        <div class="dz-preview dz-file-preview">
+          <img data-dz-thumbnail />
+          <div class="dz-details">
+            <div data-dz-name></div>
+            <div data-dz-size></div>
+          </div>
+          <div class="dz-progress">
+            <span class="dz-upload" data-dz-uploadprogress></span>
+          </div>
+
+          <div class="dz-error-message"><span data-dz-errormessage></span></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="form-button">
+      @if (isLoading) {
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      جاري الإضافة... } @else { اضافة فئة }
+    </button>
+  </form>
+</section>

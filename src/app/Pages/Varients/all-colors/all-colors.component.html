@@ -1,0 +1,35 @@
+<section>
+  <div class="row mb-3">
+    <div class="col">
+      <h1>جميع الالوان</h1>
+      <p>هنا يمكنك العثور على جميع الالوان المتاحة في متجرنا.</p>
+    </div>
+
+    <div class="col">
+      <button class="form-button" (click)="openAddColorPopup()">
+        اضافة لون
+      </button>
+    </div>
+  </div>
+  <div>
+    <table class="table table-stripe">
+      <thead>
+        <tr>
+          <th>اسم اللون</th>
+          <th>درجة اللون</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          @for (color of colors; track $index) {
+            <td>{{ color.colorName}}</td>
+            <td>
+              <div [style.backgroundColor]="color.colorCode" class="color-box"></div>
+            </td>
+          }
+          <td>red</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
