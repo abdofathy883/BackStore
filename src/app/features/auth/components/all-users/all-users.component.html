@@ -1,0 +1,36 @@
+<section class="container py-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <h1>جميع الحسابات</h1>
+      <p>هنا يمكنك العثور على جميع الحسابات المتاحة في متجرنا.</p>
+    </div>
+    <div>
+      <a routerLink="/users/add" class="btn btn-primary">اضافة مستخدم</a>
+    </div>
+  </div>
+
+  <div>
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>الاسم</th>
+          <th>رقم الهاتف</th>
+          <th>الايميل</th>
+          <th>الدور</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track $index) {
+          <tr (click)="goToUser(user.id)" style="cursor: pointer">
+            <td data-cell="الاسم">
+              {{ user.firstName + " " + user.lastName }}
+            </td>
+            <td data-cell="رقم الهاتف">{{ user.phoneNumber || '-' }}</td>
+            <td data-cell="الايميل">{{ user.email }}</td>
+            <td data-cell="الدور">{{ user.roles[0] }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

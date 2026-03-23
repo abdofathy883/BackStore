@@ -1,0 +1,58 @@
+<section class="container py-4">
+  <div class="row d-flex align-items-center">
+    <div class="col-sm-12 col-md-6">
+      <h1>جميع تصنيفات المنتجات</h1>
+      <p>هنا يمكنك العثور على جميع المنتجات المتاحة في متجرنا.</p>
+    </div>
+    <div class="col-sm-12 col-md-6 text-md-start">
+      <a class="btn btn-primary" routerLink="/categories/add"> إضافة تصنيف </a>
+    </div>
+  </div>
+
+  <div>
+    @if (categories.length === 0) {
+      <div class="text-center my-5">
+        <img
+          src="./assets/Empty-amico.svg"
+          width="30%"
+          alt="قائمة المنتجات فارغة"
+        />
+        <h2>لا يوجد تصنيفات حتى الان</h2>
+        <p>قم باضافة تصنيف جديد للظهور هنا وفي المتجر</p>
+        <a class="btn btn-primary" routerLink="/categories/add">
+          إضافة تصنيف
+        </a>
+      </div>
+    } @else {
+      <span>{{ categories.length }}</span>
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>اسم التصنيف</th>
+            <th>حالة الظهور</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (category of categories; track $index) {
+            <tr
+              (click)="goToCategoryDetails(category.id)"
+              style="cursor: pointer"
+            >
+              <td data-cell="اسم التصنيف">{{ category.title }}</td>
+              @if (category.isDeleted) {
+                <td data-cell="حالة الظهور">
+                  <span class="badge text-bg-danger">مخفي</span>
+                </td>
+              }
+              @if (category.isDeleted == false) {
+                <td data-cell="حالة الظهور">
+                  <span class="badge text-bg-success">ظاهر</span>
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</section>

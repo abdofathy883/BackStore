@@ -1,0 +1,155 @@
+<section class="container py-4">
+  <div class="row mb-3 d-flex align-items-center">
+    <div class="col-sm-12 col-md-6">
+      <h1>جميع الالوان</h1>
+      <p>هنا يمكنك العثور على جميع الالوان المتاحة في متجرنا.</p>
+    </div>
+
+    <div class="col-sm-12 col-md-6 text-md-start">
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        اضافة لون جديد
+      </button>
+    </div>
+  </div>
+  <div>
+    @if (colors.length === 0) {
+      <div class="text-center my-5">
+        <img
+          src="./assets/Empty-amico.svg"
+          width="30%"
+          alt="قائمة المنتجات فارغة"
+        />
+        <h2>لا يوجد الوان حتى الان</h2>
+        <p>قم باضافة لون جديد للظهور هنا وفي المتجر</p>
+      </div>
+    } @else {
+      <h1>{{ colors.length }}</h1>
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>اسم اللون</th>
+            <th>درجة اللون</th>
+            <th>حالة الظهور</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (color of colors; track $index) {
+            <tr (click)="goToColor(color.id)" style="cursor: pointer">
+              <td data-cell="اسم اللون">{{ color.name }}</td>
+              <td data-cell="درجة اللون">
+                <div
+                  [style.backgroundColor]="color.colorCode"
+                  class="color-box"
+                ></div>
+              </td>
+              @if (color.isDeleted) {
+                <td data-cell="حالة الظهور">
+                  <span class="badge text-bg-danger">مخفي</span>
+                </td>
+              }
+              @if (color.isDeleted == false) {
+                <td data-cell="حالة الظهور">
+                  <span class="badge text-bg-success">ظاهر</span>
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</section>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">إضافة لون جديد</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form [formGroup]="colorForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">اسم اللون</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              formControlName="name"
+              name="name"
+              [class.is-invalid]="
+                colorForm.get('name')?.invalid && colorForm.get('name')?.touched
+              "
+            />
+            @if (
+              colorForm.get('name')?.invalid && colorForm.get('name')?.touched
+            ) {
+              <div class="invalid-feedback">هذا الحقل مطلوب</div>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="colorCode" class="form-label">درجة اللون</label>
+            <input
+              type="color"
+              class="form-control"
+              id="colorCode"
+              formControlName="colorCode"
+              name="colorCode"
+              [class.is-invalid]="
+                colorForm.get('colorCode')?.invalid &&
+                colorForm.get('colorCode')?.touched
+              "
+            />
+            @if (
+              colorForm.get('colorCode')?.invalid &&
+              colorForm.get('colorCode')?.touched
+            ) {
+              <div class="invalid-feedback">هذا الحقل مطلوب</div>
+            }
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            اغلاق
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="isLoading"
+          >
+            @if (isLoading) {
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              جاري الإضافة...
+            } @else {
+              اضافة لون
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,67 +1,50 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./Components/header/header.component";
-import { Subscription } from 'rxjs';
-import { PopUpService } from './Services/PopUp/pop-up.service';
-import { AddProductComponent } from "./Pages/Products/add-product/add-product.component";
-import { AddCategoryComponent } from "./Pages/Category/add-category/add-category.component";
-import { AddUserComponent } from "./Pages/Users/add-user/add-user.component";
-import { AddVendorComponent } from "./Pages/Vendos/add-vendor/add-vendor.component";
-import { AddColorComponent } from "./Pages/Varients/add-color/add-color.component";
-import { AddSizeComponent } from "./Pages/Varients/add-size/add-size.component";
+import { AuthService } from './features/auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, AddProductComponent, AddCategoryComponent, AddUserComponent, AddVendorComponent, AddColorComponent, AddSizeComponent],
+  imports: [RouterOutlet, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit, OnDestroy {
-  title = 'BackStore-Client';
-
-  popupStates: { [key: string]: boolean } = {};
-  subscription: Subscription;
-
+export class AppComponent implements OnInit {
   isSidebarCollapsed = false;
-  isMobile = false;
+  isAuthenticated: boolean = false;
 
-  constructor(private popup: PopUpService) {
-    this.subscription = this.popup.popupStates$.subscribe(states => {
-      this.popupStates = states;
-    });
-  }
-  ngOnInit(): void {
-    this.checkScreen();
-    window.addEventListener('resize', this.checkScreen.bind(this));
-  }
-
-  closePopup(id: string) {
-  this.popup.closePopup(id);
-}
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    window.removeEventListener('resize', this.checkScreen.bind(this));
-  }
-
-  get sidebarIsOpenOnMobile() {
-    return this.isMobile && !this.isSidebarCollapsed;
+  constructor(private authService: AuthService) { }
+  
+  async ngOnInit() {
+    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
+      this.isAuthenticated = isLoggedIn;
+    })
+    this.isAuthenticated = this.authService.isAuthenticated();
+    
+    // Set initial sidebar state based on screen width
+    this.checkScreenSize();
+    // Request notification permission
+    // const hasPermission = await this.pushNotificationService.requestNotificationPermission();
+    
+    // if (hasPermission) {
+    //   // Get current user ID (from your auth service)
+    //   const userId = this.authService.getCurrentUserId(); // Implement this method
+    //   // await this.pushNotificationService.subscribeToNotifications(userId);
+    // }
   }
 
-  closeSidebar() {
-    if (this.isMobile) {
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize(): void {
+    if (window.innerWidth <= 750) {
       this.isSidebarCollapsed = true;
     }
   }
 
-  checkScreen() {
-    this.isMobile = window.innerWidth <= 768;
-    if (this.isMobile) {
-      this.isSidebarCollapsed = true;
-    }
-  }
-
-   toggleSidebar() {
-    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  onSidebarToggle(collapsed: boolean) {
+    this.isSidebarCollapsed = collapsed;
   }
 }

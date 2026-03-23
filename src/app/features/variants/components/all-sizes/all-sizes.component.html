@@ -1,0 +1,124 @@
+<section class="container py-4">
+  <div class="row mb-3 d-flex align-items-center">
+    <div class="col-sm-12 col-md-6">
+      <h1>جميع المقاسات</h1>
+      <p>هنا يمكنك العثور على جميع المقاسات المتاحة في متجرنا.</p>
+    </div>
+
+    <div class="col-sm-12 col-md-6 text-md-start">
+      <button type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal">اضافة مقاس جديد</button>
+    </div>
+  </div>
+
+  <div>
+    @if (sizes.length === 0) {
+    <div class="text-center my-5">
+      <img
+        src="./assets/Empty-amico.svg"
+        width="30%"
+        alt="قائمة المنتجات فارغة"
+      />
+      <h2>لا يوجد مقاسات حتى الان</h2>
+      <p>قم باضافة مقاس جديد للظهور هنا وفي المتجر</p>
+
+    </div>
+    } @else {
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>اسم المقاس</th>
+          <th>حالة الظهور</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (size of sizes; track $index) {
+        <tr (click)="goToSingleSize(size.id)" style="cursor: pointer">
+          <td data-cell="اسم المقاس">{{ size.name }}</td>
+          <!-- @if (size.isDeleted == true) {
+          <td data-cell="حالة الظهور">
+            <span class="badge text-bg-danger">مخفي</span>
+          </td>
+          } @if (size.isDeleted == false) {
+          <td data-cell="حالة الظهور">
+            <span class="badge text-bg-success">ظاهر</span>
+          </td>
+          } -->
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
+  </div>
+</section>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">إضافة مقاس جديد</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form [formGroup]="sizeForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">اسم المقاس</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              formControlName="name"
+              name="name"
+              [class.is-invalid]="
+                sizeForm.get('name')?.invalid && sizeForm.get('name')?.touched
+              "
+            />
+            @if (
+              sizeForm.get('name')?.invalid && sizeForm.get('name')?.touched
+            ) {
+              <div class="invalid-feedback">هذا الحقل مطلوب</div>
+            }
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            اغلاق
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="isLoading"
+          >
+            @if (isLoading) {
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              جاري الإضافة...
+            } @else {
+              اضافة لون
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

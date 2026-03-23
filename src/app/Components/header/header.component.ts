@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../Services/Auth/auth.service';
+import { AuthService } from '../../features/auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,41 +10,47 @@ import { AuthService } from '../../Services/Auth/auth.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
-  @Input() signalIsCollapsed: boolean = false;
-  @Input() signalIsMobile: boolean = false;
-  @Output() signalToggleSidebar = new EventEmitter<void>();
-  isCollapsed = false;
-  isMobile = false;
-  isAdmin: boolean = false;
-  isSuperAdmin: boolean = false;
-  isCashier: boolean = false;
-  isManager: boolean = false;
+  openMenu: string | null = null;
+  userId: string = '';
+  isCollapsed: boolean = false;
+  isUserAdmin: boolean = false;
+
+  @Input() isSidebarCollapsed: boolean = false;
+  @Output() sidebarToggle = new EventEmitter<boolean>();
 
   constructor(private authService: AuthService) {}
 
-  @HostListener('window:resize')
-  
-  onResize() {
-    this.checkScreen();
-  }
+  ngOnInit(): void {
+    // this.userId = this.authService.getCurrentUserId();
+    // this.authService.isAdmin().subscribe((isAdmin) => {
+    //   if (isAdmin) {
+    //     this.isUserAdmin = true;
+    //   }
+    // });
 
-  checkScreen() {
-    this.isMobile = window.innerWidth <= 768;
-    if (this.isMobile) {
+    // Set initial collapsed state based on screen width
+    if (window.innerWidth <= 750) {
       this.isCollapsed = true;
+      this.sidebarToggle.emit(true);
     }
   }
 
-  ngOnInit(): void {
-    this.checkScreen();
-    this.isAdmin = this.authService.isAdmin();
-    this.isSuperAdmin = this.authService.isSuperAdmin();
-    this.isCashier = this.authService.isCashier();
-    this.isManager = this.authService.isManager();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (
+      changes['isSidebarCollapsed'] &&
+      !changes['isSidebarCollapsed'].firstChange
+    ) {
+      this.isCollapsed = this.isSidebarCollapsed;
+    }
+  }
+
+  toggleMenu(menu: string) {
+    this.openMenu = this.openMenu === menu ? null : menu;
   }
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+    this.sidebarToggle.emit(this.isCollapsed);
   }
 }
 

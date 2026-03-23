@@ -1,0 +1,100 @@
+<section class="container py-4">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="mb-0">إضافة حساب جديد</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="userForm" (submit)="onSubmit()">
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label for="firstName" class="form-label">الاسم الاول</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              formControlName="firstName"
+              name="firstName"
+            />
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="lastName" class="form-label">الاسم الاخير</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              formControlName="lastName"
+              name="lastName"
+            />
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label for="email" class="form-label">البريد الالكتروني</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              formControlName="email"
+              name="email"
+            />
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="phone" class="form-label">رقم الهاتف</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="phone"
+              formControlName="phoneNumber"
+              name="phone"
+            />
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label for="password" class="form-label">كلمة المرور</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              formControlName="password"
+              name="password"
+            />
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="role" class="form-label">الدور</label>
+            <select
+              name="role"
+              id="role"
+              class="form-select"
+              formControlName="role"
+              name="role"
+            >
+              <option disabled selected>اختر الدور</option>
+              <option [value]="2">ادمن</option>
+              <option [value]="1">سوبر ادمن</option>
+              <option [value]="3">عميل</option>
+              <option [value]="4">كاشير</option>
+              <option [value]="5">مدير</option>
+            </select>
+          </div>
+        </div>
+    
+        <button class="form-button">
+          @if (isLoading) {
+            <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            جاري الإضافة...
+          } @else {
+            اضافة حساب
+          }
+        </button>
+      </form>
+    </div>
+  </div>
+
+</section>

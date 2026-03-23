@@ -1,0 +1,51 @@
+<section class="container">
+  <!-- @if (currentSize.isDeleted) {
+  <div class="alert alert-danger" role="alert">هذا المقاس مخفي من المتجر</div>
+  } -->
+  <form [formGroup]="sizeForm" (submit)="onSubmit()">
+    <label for="name" class="form-label">اسم المقاس</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      formControlName="name"
+      name="name"
+    />
+
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="switchCheckDefault"
+      />
+      <label class="form-check-label" for="switchCheckDefault">اخفاء</label>
+    </div>
+
+    <button class="form-button">
+      @if (isLoading) {
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      جاري التحديث... } @else { تحديث البيانات }
+    </button>
+  </form>
+</section>
+
+<section class="container mt-5"> 
+  <!-- @if(currentSize.isDeleted == false) {
+    <button class="btn btn-danger" (click)="toggleVisibility()">اخفاء اللون من المتجر</button>
+
+  }
+  @if(currentSize.isDeleted) {
+    <button class="btn btn-danger" (click)="toggleVisibility()">اظهار اللون من المتجر</button>
+
+  } -->
+</section>
+
+<section class="container mt-5">
+    <button class="btn btn-danger" (click)="deleteSize()">حذف اللون نهائي من المتجر</button>
+
+</section>

@@ -1,62 +1,75 @@
-<header [class.collapsed]="isCollapsed" [class.expanded]="!isCollapsed && isMobile" class="sidebar">
-  <nav>
+<header class="sidebar-container" [class.collapsed]="isSidebarCollapsed">
+  <nav class="sidebar">
     <button class="toggle-btn" (click)="toggleSidebar()">
-      <i class="bi bi-list"></i>
+      <i
+        class="bi"
+        [class.bi-chevron-right]="!isCollapsed"
+        [class.bi-chevron-left]="isCollapsed"
+      ></i>
     </button>
-    <ul class="navbar-nav text-white">
-      <li class="nav-item">
-        <a routerLink="/" class="nav-link py-3">
-          <i class="bi bi-house-door-fill"></i>
-          <span class="link-text me-4">الرئيسية</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/product/all-products" class="nav-link py-3">
-          <i class="bi bi-box"></i>
-          <span class="link-text me-4">المنتجات</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/user/all-users" class="nav-link py-3">
-          <i class="bi bi-people-fill"></i>
-          <span class="link-text me-4">المستخدمون</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          routerLink="/category/all-categories"
-          class="nav-link py-3"
-        >
-          <i class="bi bi-tags"></i>
-          <span class="link-text me-4">التصنيفات</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/vendor/all-vendors" class="nav-link py-3">
-          <i class="bi bi-shop"></i>
-          <span class="link-text me-4">التجار</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/varient/all-colors" class="nav-link py-3">
-          <i class="bi bi-shop"></i>
-          <span class="link-text me-4">الالوان</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/varient/all-sizes" class="nav-link py-3">
-          <i class="bi bi-shop"></i>
-          <span class="link-text me-4">المقاسات</span>
-        </a>
-      </li>
-    </ul>
 
-    
+    <div class="logo-container my-4" [class.collapsed]="isCollapsed">
+      <a class="navbar-brand">
+        <!-- <img
+          src="./assets/The Minaret Agency.png"
+          class="mx-auto d-block"
+          width="50%"
+          alt=""
+        /> -->
+      </a>
+    </div>
+
+    <div class="sidebar-nav">
+      <ul class="navbar-nav text-white">
+        <li [ngClass]="{ 'nav-item': true, 'me-2': !isCollapsed }">
+          <a routerLink="/attendance" class="nav-link">
+            <i class="bi bi-house-door-fill ms-3"></i>
+            <span class="nav-text" [class.hidden]="isCollapsed">الرئيسية</span>
+          </a>
+        </li>
+        
+        <li [ngClass]="{ 'nav-item': true, 'me-2': !isCollapsed }">
+          <a routerLink="/categories/all" class="nav-link">
+            <i class="bi bi-tags ms-3"></i>
+            <span class="nav-text" [class.hidden]="isCollapsed">التصنيفات</span>
+          </a>
+        </li>
+
+        <li [ngClass]="{ 'nav-item': true, 'me-2': !isCollapsed }">
+          <a routerLink="/products/all" class="nav-link">
+            <i class="bi bi-box ms-3"></i>
+            <span class="nav-text" [class.hidden]="isCollapsed">المنتجات</span>
+          </a>
+        </li>
+        
+        <li [ngClass]="{ 'nav-item': true, 'me-2': !isCollapsed }">
+          <a routerLink="/colors/all" class="nav-link">
+            <i class="bi bi-tags ms-3"></i>
+            <span class="nav-text" [class.hidden]="isCollapsed">الالوان</span>
+          </a>
+        </li>
+        
+        <li [ngClass]="{ 'nav-item': true, 'me-2': !isCollapsed }">
+          <a routerLink="/sizes/all" class="nav-link">
+            <i class="bi bi-tags ms-3"></i>
+            <span class="nav-text" [class.hidden]="isCollapsed">المقاسات</span>
+          </a>
+        </li>
+        
+        <li [ngClass]="{ 'nav-item': true, 'me-2': !isCollapsed }">
+          <a routerLink="/users/all" class="nav-link">
+            <i class="bi bi-people-fill ms-3"></i>
+            <span class="nav-text" [class.hidden]="isCollapsed">المستخدمون</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sidebar-account text-white" [class.collapsed]="isCollapsed">
+      <a class="nav-link" [routerLink]="['/my-profile', userId]">
+        <i class="bi bi-person-circle ms-3"></i>
+        <span class="nav-text" [class.hidden]="isCollapsed">حسابي</span>
+      </a>
+    </div>
   </nav>
-  <div class="my-4 mx-4">
-    <a routerLink="/user/my-profile" class="nav-link py-3">
-      <i class="bi bi-person-circle"></i>
-      <span class="link-text me-4">حسابي</span>
-    </a>
-  </div>
 </header>

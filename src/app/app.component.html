@@ -1,58 +1,10 @@
-<div >
-  <app-header [signalIsCollapsed]="isSidebarCollapsed"
-    [signalIsMobile]="isMobile"
-    (signalToggleSidebar)="toggleSidebar()"></app-header>
-  <div  [class.blurred]="sidebarIsOpenOnMobile">
-    <div class="mt-3">
-      @if (popupStates['addProductPopup']) {
-      <div class="popup-backdrop" (click)="closePopup('addProductPopup')">
-        <div class="popup-content" (click)="$event.stopPropagation()">
-          <app-add-product></app-add-product>
+<div class="app-container">
+    @if (isAuthenticated) {
+        <div class="sidebar-wrapper" [class.collapsed]="isSidebarCollapsed">
+            <app-header [isSidebarCollapsed]="isSidebarCollapsed" (sidebarToggle)="onSidebarToggle($event)"></app-header>
         </div>
-      </div>
-      } @if (popupStates['addCategoryPopup']) {
-      <div class="popup-backdrop" (click)="closePopup('addCategoryPopup')">
-        <div class="popup-content" (click)="$event.stopPropagation()">
-          <app-add-category></app-add-category>
-        </div>
-      </div>
-      }
-      @if (popupStates['addUserPopup']) {
-      <div class="popup-backdrop" (click)="closePopup('addUserPopup')">
-        <div class="popup-content" (click)="$event.stopPropagation()">
-          <app-add-user></app-add-user>
-        </div>
-      </div>
     }
-    @if (popupStates['addVendorPopup']) {
-      <div class="popup-backdrop" (click)="closePopup('addVendorPopup')">
-        <div class="popup-content" (click)="$event.stopPropagation()">
-          <app-add-vendor></app-add-vendor>
-        </div>
-      </div>
-    }
-    @if (popupStates['addColorPopup']) {
-      <div class="popup-backdrop" (click)="closePopup('addVendorPopup')">
-        <div class="popup-content" (click)="$event.stopPropagation()">
-          <app-add-color></app-add-color>
-        </div>
-      </div>
-    }
-    @if (popupStates['addSizePopup']) {
-      <div class="popup-backdrop" (click)="closePopup('addVendorPopup')">
-        <div class="popup-content" (click)="$event.stopPropagation()">
-          <app-add-size></app-add-size>
-        </div>
-      </div>
-    }
-      <router-outlet></router-outlet>
+    <div class="content-wrapper" [class.collapsed]="isSidebarCollapsed" [class.with-sidebar]="isAuthenticated">
+        <router-outlet></router-outlet>
     </div>
-  </div>
-  @if (sidebarIsOpenOnMobile) {
-    <div 
-      class="sidebar-backdrop" 
-      (click)="closeSidebar()">
-    </div>
-
-  }
 </div>

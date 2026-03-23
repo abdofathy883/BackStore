@@ -1,0 +1,11 @@
+.color-box {
+  height: 15px;
+}
+
+@media (max-width: 750px) {
+  .color-box {
+    width: 30px;
+    border-radius: 50%;
+    height: 30px;
+  }
+}

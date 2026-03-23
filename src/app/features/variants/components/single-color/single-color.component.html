@@ -1,0 +1,49 @@
+<section class="container">
+  @if (color.isDeleted) {
+  <div class="alert alert-danger" role="alert">هذا اللون مخفي من المتجر</div>
+  }
+
+  <form [formGroup]="colorForm" (submit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">اسم اللون</label>
+      <input type="text" class="form-control" formControlName="name" name="name"/>
+    </div>
+    <div class="mb-3">
+      <label for="code" class="form-label">درجة اللون</label>
+      <input
+        type="color"
+        class="form-control"
+        formControlName="colorCode"
+        name="colorCode"
+      />
+
+    </div>
+
+
+    <button class="form-button">
+      @if (isLoading) {
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      جاري التحديث... } @else { تحديث البيانات }
+    </button>
+  </form>
+</section>
+
+<section class="container mt-5">
+  @if(color.isDeleted == false) {
+    <button class="btn btn-danger" (click)="toggleVisibility()">اخفاء اللون من المتجر</button>
+
+  }
+  @if(color.isDeleted) {
+    <button class="btn btn-danger" (click)="toggleVisibility()">اظهار اللون من المتجر</button>
+
+  }
+</section>
+
+<section class="container mt-5">
+    <button class="btn btn-danger" (click)="deletColor()">حذف اللون نهائي من المتجر</button>
+
+</section>

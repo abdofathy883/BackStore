@@ -1,89 +1,130 @@
 import { Routes } from '@angular/router';
-import { AllProductsComponent } from './Pages/Products/all-products/all-products.component';
-import { AllUsersComponent } from './Pages/Users/all-users/all-users.component';
-import { AllCategoriesComponent } from './Pages/Category/all-categories/all-categories.component';
-import { HomeComponent } from './Pages/home/home.component';
+import { AllProductsComponent } from './features/products/components/all-products/all-products.component';
 import { AllVendorsComponent } from './Pages/Vendos/all-vendors/all-vendors.component';
-import { SingleProductComponent } from './Pages/Products/single-product/single-product.component';
-import { SingleUserComponent } from './Pages/Users/single-user/single-user.component';
-import { SingleCategoryComponent } from './Pages/Category/single-category/single-category.component';
+import { SingleProductComponent } from './features/products/components/single-product/single-product.component';
 import { SingleVendorComponent } from './Pages/Vendos/single-vendor/single-vendor.component';
-import { AddNewOrderComponent } from './Retail/add-new-order/add-new-order.component';
-import { MyProfileComponent } from './Pages/Users/my-profile/my-profile.component';
-import { LogInComponent } from './Pages/log-in/log-in.component';
-import { AllColorsComponent } from './Pages/Varients/all-colors/all-colors.component';
-import { AllSizesComponent } from './Pages/Varients/all-sizes/all-sizes.component';
-import { SingleSizeComponent } from './Pages/Varients/single-size/single-size.component';
-import { single } from 'rxjs';
-import { SingleColorComponent } from './Pages/Varients/single-color/single-color.component';
+import { AddNewOrderComponent } from './Pages/Retail/add-new-order/add-new-order.component';
+import { LogInComponent } from './features/auth/components/log-in/log-in.component';
+import { loginGuard } from './Core/Guards/login.guard';
+import { noLoginGuard } from './Core/Guards/no-login.guard';
+import { rolesGuard } from './Core/Guards/roles.guard';
+import { AllUsersComponent } from './features/auth/components/all-users/all-users.component';
+import { MyProfileComponent } from './features/auth/components/my-profile/my-profile.component';
+import { SingleUserComponent } from './features/auth/components/single-user/single-user.component';
+import { AllCategoriesComponent } from './features/category/components/all-categories/all-categories.component';
+import { AddCategoryComponent } from './features/category/components/add-category/add-category.component';
+import { SingleCategoryComponent } from './features/category/components/single-category/single-category.component';
+import { AddUserComponent } from './features/auth/components/add-user/add-user.component';
+import { AddProductComponent } from './features/products/components/add-product/add-product.component';
+import { AllColorsComponent } from './features/variants/components/all-colors/all-colors.component';
+import { AllSizesComponent } from './features/variants/components/all-sizes/all-sizes.component';
+import { SingleSizeComponent } from './features/variants/components/single-size/single-size.component';
+import { SingleColorComponent } from './features/variants/components/single-color/single-color.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
-    },
-    {
-        path: 'product/all-products',
-        component: AllProductsComponent
-    },
-    {
-        path: 'user/all-users',
-        component: AllUsersComponent
-    },
-    {
-        path: 'user/my-profile',
-        component: MyProfileComponent
-    },
-    {
-        path: 'user/single-user',
-        component: SingleUserComponent
+        redirectTo: 'login',
+        pathMatch: 'full'
     },
     {
         path: 'login',
-        component: LogInComponent
+        component: LogInComponent,
+        title: 'تسجيل الدخول',
+        canActivate: [noLoginGuard]
     },
     {
-        path: 'category/all-categories',
-        component: AllCategoriesComponent
+        path: 'users/all',
+        component: AllUsersComponent,
+        title: 'جميع المستخدمين',
+        canActivate: [loginGuard]
+    },
+    {
+        path: 'users/add',
+        component: AddUserComponent,
+        canActivate: [loginGuard]
+    },
+    {
+        path: 'users/:id',
+        component: SingleUserComponent,
+        canActivate: [loginGuard]
+    },
+    {
+        path: 'my-profile/:id',
+        component: MyProfileComponent,
+        title: 'حسابي',
+        canActivate: [loginGuard]
+    },
+    {
+        path: 'categories/all',
+        component: AllCategoriesComponent,
+        title: 'جميع التصنيفات',
+        canActivate: [loginGuard, rolesGuard],
+        // data: {roles: ['SuperAdmin']}
+    },
+    {
+        path: 'categories/add',
+        component: AddCategoryComponent,
+        canActivate: [rolesGuard],
+        // data: {roles: ['SuperAdmin']}
+    },
+    {
+        path: 'categories/:id',
+        component: SingleCategoryComponent,
+        canActivate: [loginGuard]
+    },
+    {
+        path: 'products/all',
+        component: AllProductsComponent,
+        title: 'جميع المنتجات',
+        canActivate: [loginGuard]
+    },
+    {
+        path: 'products/add',
+        component: AddProductComponent,
+        canActivate: [loginGuard]
+    },
+    {
+        path: 'products/:id',
+        component: SingleProductComponent,
+        canActivate: [loginGuard]
+    },
+    {
+        path: 'colors/all',
+        component: AllColorsComponent,
+        title: 'جميع الالوان',
+        canActivate: [loginGuard]
+    },
+    {
+        path: 'sizes/all',
+        component: AllSizesComponent,
+        title: 'جميع المقاسات',
+        canActivate: [loginGuard]
     },
     {
         path: 'vendor/all-vendors',
-        component: AllVendorsComponent
-    },
-    {
-        path: 'single-product',
-        component: SingleProductComponent
-    },
-    {
-        path: 'single-user',
-        component: SingleUserComponent
-    },
-    {
-        path: 'single-category',
-        component: SingleCategoryComponent
+        component: AllVendorsComponent,
+        canActivate: [loginGuard]
     },
     {
         path: 'single-vendor',
-        component: SingleVendorComponent
+        component: SingleVendorComponent,
+        canActivate: [loginGuard]
     },
     {
         path: 'order/add-new-order',
-        component: AddNewOrderComponent
+        component: AddNewOrderComponent,
+        canActivate: [loginGuard]
+    },
+    
+    {
+        path: 'sizes/single-size/:id',
+        component: SingleSizeComponent,
+        canActivate: [loginGuard]
     },
     {
-        path: 'varient/all-colors',
-        component: AllColorsComponent
-    },
-    {
-        path: 'varient/all-sizes',
-        component: AllSizesComponent
-    },
-    {
-        path: 'sizes/single-size : id',
-        component: SingleSizeComponent
-    },
-    {
-        path: 'colors/single-color : id',
-        component: SingleColorComponent
+        path: 'colors/single-color/:id',
+        component: SingleColorComponent,
+        canActivate: [loginGuard]
     }
 ];

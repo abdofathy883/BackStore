@@ -1,0 +1,7 @@
+section {
+        width: 500px;
+    border: 2px black solid;
+    padding: 25px;
+    border-radius: 15px;
+    background-color: rgb(202, 202, 202);
+}
