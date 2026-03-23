@@ -1,59 +1,75 @@
-# BackStoreClient
+# BackStore – Admin Dashboard & POS Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.8.
+BackStore is an Angular application designed for managing inventory, vendors, and cashier transactions in a unified admin and POS system. It connects to the [Retail backend](https://github.com/abdofathy883/Retail) and supports both administrative workflows and point-of-sale operations.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🧠 Project Overview
 
-```bash
-ng serve
-```
+BackStore provides two core roles:
+- **Admin**: Manage products, categories, vendors, and orders
+- **Cashier**: Place new orders via the POS module during live customer transactions
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+This is a separate interface from the customer-facing [StoreFront](https://github.com/abdofathy883/StoreFront).
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🚀 Key Features
 
-```bash
-ng generate component component-name
-```
+- **Secure Authentication**: JWT-based login with role-specific routing
+- **Inventory Management**: CRUD UI for categories, products, variants, and vendors
+- **POS Module**: Simple interface for cashiers to place real-time orders (keyboard/mouse input; hardware support not yet implemented)
+- **Order Management**: View placed orders, statuses, and summary details
+- **Role Guards**: Enforced route protection based on JWT role claims
+- **Interceptor Integration**: All API calls secured via Angular HTTP interceptors
+- **Responsive Design**: Layouts optimized for desktop use with expandable navigation
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 🧱 Architecture & Project Structure
 
-## Building
+BackStore uses a modular Angular architecture with services and guards:
 
-To build the project run:
+### 📂 Key Modules
 
-```bash
-ng build
-```
+- `AuthModule`: Login, JWT handling, and redirection logic
+- `AdminModule`: Product/category/vendor/order management views
+- `POSModule`: POS interface for order entry and confirmation
+- `SharedModule`: Reusable components, pipes, layouts, and guards
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### 🛠️ Core Services
 
-## Running unit tests
+- `AuthService`: Login, logout, and token storage
+- `ApiService`: Generic wrapper for calling the backend API
+- `InterceptorService`: Attaches JWT to outbound HTTP requests
+- `GuardService`: Protects admin/POS routes by role
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## 🔧 Technology Stack
 
-## Running end-to-end tests
+| Category       | Tech                          |
+|----------------|-------------------------------|
+| Framework      | Angular 19                    |
+| Language       | TypeScript                    |
+| Styling        | Bootstrap                     |
+| Routing        | Angular Router (lazy-loaded)  |
+| Security       | JWT Auth + Route Guards       |
+| API Handling   | HttpClient + Interceptors     |
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## 🔐 Roles & Permissions
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+| Role          | Permissions                                   |
+|---------------|-----------------------------------------------|
+| SuperAdmin    | Full access to all operations, non-deletable  |
+| Admin         | Partial access to all operations              |
+| Manager       | Manages POS module & Cachiers                 |
+| Cachier       | POS module: create orders                     |
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📄 License
+
+This project is developed for prototyping purposes. Contact the maintainer for commercial use or extensions.
